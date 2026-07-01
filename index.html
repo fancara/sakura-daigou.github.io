@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>櫻花代購 | 日本直送正品</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', system-ui, sans-serif;
+        }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://picsum.photos/id/1015/2000/1200');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        
+        .flag-jp {
+            background: linear-gradient(90deg, #fff 33.3%, #f00 33.3%, #f00 66.6%, #fff 66.6%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center text-white text-2xl">🌸</div>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">櫻花代購</h1>
+                    <p class="text-xs text-gray-500 -mt-1">日本直送・安心代購</p>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 text-gray-700">
+                <a href="#home" class="hover:text-pink-600 transition-colors font-medium">首頁</a>
+                <a href="#products" class="hover:text-pink-600 transition-colors font-medium">商品</a>
+                <a href="#how" class="hover:text-pink-600 transition-colors font-medium">代購流程</a>
+                <a href="#about" class="hover:text-pink-600 transition-colors font-medium">關於我們</a>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button onclick="toggleCart()" 
+                        class="relative p-3 hover:bg-gray-100 rounded-full transition-colors">
+                    <i class="fa-solid fa-shopping-cart text-xl"></i>
+                    <span id="cart-count" 
+                          class="absolute -top-1 -right-1 bg-pink-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+                <button class="md:hidden">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="hero-bg h-screen flex items-center text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-6 py-2 rounded-full mb-6">
+                <span class="flag-jp w-6 h-4 inline-block rounded"></span>
+                <span class="text-sm font-medium">日本東京・大阪・九州直送</span>
+            </div>
+            <h2 class="text-6xl md:text-7xl font-bold mb-6 leading-tight">
+                想買的日本商品<br>我們幫您代購
+            </h2>
+            <p class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto">
+                化妝品・零食・藥妝・潮流服飾・動漫周邊<br>
+                <span class="text-pink-300">專業代購・正品保障・快速到貨</span>
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#products" 
+                   class="bg-pink-600 hover:bg-pink-700 px-10 py-4 rounded-2xl font-semibold text-lg transition-colors inline-flex items-center justify-center gap-3">
+                    立即逛商品
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <button onclick="showContact()" 
+                        class="border-2 border-white hover:bg-white hover:text-gray-900 px-10 py-4 rounded-2xl font-semibold text-lg transition-colors">
+                    聯絡我們
+                </button>
+            </div>
+            <div class="mt-12 flex justify-center gap-8 text-sm">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-shield-alt"></i>
+                    <span>正品保障</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-truck"></i>
+                    <span>7-14天到貨</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-headset"></i>
+                    <span>全程中文服務</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">熱門類別</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div onclick="filterCategory('beauty')" class="cursor-pointer group">
+                    <div class="aspect-square bg-gradient-to-br from-pink-100 to-rose-200 rounded-3xl flex items-center justify-center text-6xl mb-4 group-hover:scale-105 transition-transform">💄</div>
+                    <p class="text-center font-semibold text-lg">美妝保養</p>
+                </div>
+                <div onclick="filterCategory('snack')" class="cursor-pointer group">
+                    <div class="aspect-square bg-gradient-to-br from-orange-100 to-amber-200 rounded-3xl flex items-center justify-center text-6xl mb-4 group-hover:scale-105 transition-transform">🍡</div>
+                    <p class="text-center font-semibold text-lg">日本零食</p>
+                </div>
+                <div onclick="filterCategory('fashion')" class="cursor-pointer group">
+                    <div class="aspect-square bg-gradient-to-br from-blue-100 to-cyan-200 rounded-3xl flex items-center justify-center text-6xl mb-4 group-hover:scale-105 transition-transform">👟</div>
+                    <p class="text-center font-semibold text-lg">潮流服飾</p>
+                </div>
+                <div onclick="filterCategory('anime')" class="cursor-pointer group">
+                    <div class="aspect-square bg-gradient-to-br from-purple-100 to-violet-200 rounded-3xl flex items-center justify-center text-6xl mb-4 group-hover:scale-105 transition-transform">🎌</div>
+                    <p class="text-center font-semibold text-lg">動漫周邊</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section id="products" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-end mb-10">
+                <h2 class="text-4xl font-bold">精選商品</h2>
+                <div class="text-pink-600 font-medium flex items-center gap-2 cursor-pointer hover:underline" onclick="viewAllProducts()">
+                    查看全部 <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </div>
+            
+            <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <!-- Products populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how" class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">代購流程</h2>
+            <p class="text-center text-gray-600 mb-16 max-w-md mx-auto">簡單四步，輕鬆買到日本好物</p>
+            
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto bg-pink-100 rounded-2xl flex items-center justify-center text-4xl mb-6">1️⃣</div>
+                    <h4 class="font-semibold mb-2">告訴我們想要什麼</h4>
+                    <p class="text-sm text-gray-600">提供商品連結或照片，我們幫您找貨</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto bg-pink-100 rounded-2xl flex items-center justify-center text-4xl mb-6">2️⃣</div>
+                    <h4 class="font-semibold mb-2">確認價格與運費</h4>
+                    <p class="text-sm text-gray-600">包含日本當地價格 + 代購費 + 國際運費</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto bg-pink-100 rounded-2xl flex items-center justify-center text-4xl mb-6">3️⃣</div>
+                    <h4 class="font-semibold mb-2">付款後代購</h4>
+                    <p class="text-sm text-gray-600">我們在日本購買並打包寄出</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto bg-pink-100 rounded-2xl flex items-center justify-center text-4xl mb-6">4️⃣</div>
+                    <h4 class="font-semibold mb-2">台灣收貨</h4>
+                    <p class="text-sm text-gray-600">7-14天安全送達您的手中</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-pink-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">客戶真心回饋</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm">
+                    <p class="italic text-gray-600 mb-6">"第一次用就超滿意！買的SK-II神仙水完全正品，包裝也很用心。下次還會繼續找他們代購。"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-amber-200 rounded-full"></div>
+                        <div>
+                            <p class="font-medium">小薇</p>
+                            <p class="text-sm text-gray-500">台北</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm">
+                    <p class="italic text-gray-600 mb-6">"幫我代購了幾十包限定零食，超新鮮！客服很親切，什麼問題都很快回覆。"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-200 rounded-full"></div>
+                        <div>
+                            <p class="font-medium">阿凱</p>
+                            <p class="text-sm text-gray-500">高雄</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm">
+                    <p class="italic text-gray-600 mb-6">"動漫周邊買得很順利，特別是那款限定手辦，品質跟官網一樣好！強力推薦！"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-purple-200 rounded-full"></div>
+                        <div>
+                            <p class="font-medium">小美</p>
+                            <p class="text-sm text-gray-500">台中</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center text-3xl">🌸</div>
+                    <h3 class="text-3xl font-bold">櫻花代購</h3>
+                </div>
+                <p class="text-gray-400">專業日本代購服務<br>讓您輕鬆擁有日本好物</p>
+                <div class="mt-6 flex gap-4 text-2xl">
+                    <i class="fa-brands fa-line"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-semibold mb-4">快速連結</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#" class="hover:text-white">熱門商品</a></li>
+                    <li><a href="#" class="hover:text-white">最新到貨</a></li>
+                    <li><a href="#" class="hover:text-white">代購須知</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-semibold mb-4">聯絡我們</h4>
+                <ul class="space-y-3 text-gray-400">
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>LINE ID: sakura_daigou</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>service@sakuradaigou.tw</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>週一至週日 09:00-22:00</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-semibold mb-4">安全保障</h4>
+                <div class="flex flex-wrap gap-4 text-4xl opacity-70">
+                    <i class="fa-solid fa-lock"></i>
+                    <i class="fa-solid fa-credit-card"></i>
+                    <i class="fa-solid fa-truck-fast"></i>
+                </div>
+                <p class="text-xs text-gray-500 mt-6">© 2026 櫻花代購 All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="hidden fixed inset-0 bg-black/70 z-[100] flex items-center justify-center">
+        <div class="bg-white rounded-3xl max-w-md w-full mx-4 max-h-[90vh] overflow-hidden">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 class="text-2xl font-semibold">購物車</h3>
+                <button onclick="toggleCart()" class="text-3xl text-gray-400 hover:text-gray-600">×</button>
+            </div>
+            <div id="cart-items" class="p-6 overflow-auto max-h-[60vh]">
+                <!-- Cart items added by JS -->
+            </div>
+            <div class="p-6 border-t">
+                <div class="flex justify-between text-lg mb-6">
+                    <span class="font-medium">總計</span>
+                    <span id="cart-total" class="font-bold text-2xl">NT$ 0</span>
+                </div>
+                <button onclick="checkout()" 
+                        class="w-full bg-gradient-to-r from-pink-600 to-rose-600 text-white py-5 rounded-2xl font-semibold text-lg hover:brightness-110 transition">
+                    前往結帳
+                </button>
+                <p class="text-center text-xs text-gray-500 mt-4">目前為展示網站，結帳功能為示範</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script already included
+        
+        let cart = [];
+        
+        const products = [
+            {
+                id: 1,
+                name: "SK-II 神仙水 230ml",
+                price: 2890,
+                category: "beauty",
+                image: "https://picsum.photos/id/1015/400/400",
+                desc: "經典抗老化精華"
+            },
+            {
+                id: 2,
+                name: "明治 草莓夾心巧克力",
+                price: 320,
+                category: "snack",
+                image: "https://picsum.photos/id/292/400/400",
+                desc: "日本限定口味"
+            },
+            {
+                id: 3,
+                name: "UNIQLO 聯名 UT T恤",
+                price: 890,
+                category: "fashion",
+                image: "https://picsum.photos/id/201/400/400",
+                desc: "限量動漫聯名"
+            },
+            {
+                id: 4,
+                name: "鬼滅之刃 禰豆子手辦",
+                price: 1680,
+                category: "anime",
+                image: "https://picsum.photos/id/866/400/400",
+                desc: "正版限定版"
+            },
+            {
+                id: 5,
+                name: "資生堂 紅妍肌活精華",
+                price: 2150,
+                category: "beauty",
+                image: "https://picsum.photos/id/1016/400/400",
+                desc: "熱賣保養品"
+            },
+            {
+                id: 6,
+                name: "Calbee 北海道薯片",
+                price: 180,
+                category: "snack",
+                image: "https://picsum.photos/id/431/400/400",
+                desc: "多種口味任選"
+            },
+            {
+                id: 7,
+                name: "New Balance 574 復古鞋",
+                price: 2890,
+                category: "fashion",
+                image: "https://picsum.photos/id/669/400/400",
+                desc: "日本限定色"
+            },
+            {
+                id: 8,
+                name: "寶可夢 皮卡丘絨毛玩偶",
+                price: 980,
+                category: "anime",
+                image: "https://picsum.photos/id/870/400/400",
+                desc: "超可愛收藏款"
+            }
+        ];
+        
+        function renderProducts(filteredProducts = products) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            
+            filteredProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card bg-white rounded-3xl overflow-hidden shadow-sm';
+                card.innerHTML = `
+                    <div class="relative">
+                        <img src="${product.image}" alt="${product.name}" 
+                             class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4 bg-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                            NT$ ${product.price}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs uppercase tracking-widest text-pink-600 mb-1">${product.category}</div>
+                        <h4 class="font-semibold text-lg leading-tight mb-2">${product.name}</h4>
+                        <p class="text-sm text-gray-500 mb-6">${product.desc}</p>
+                        <button onclick="addToCart(${product.id})" 
+                                class="w-full bg-gray-900 hover:bg-black text-white py-3.5 rounded-2xl text-sm font-medium transition">
+                            加入購物車
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+        
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+            
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity = (existing.quantity || 1) + 1;
+            } else {
+                cart.push({...product, quantity: 1});
+            }
+            
+            updateCartCount();
+            
+            // Toast
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-8 right-8 bg-gray-800 text-white px-6 py-4 rounded-2xl shadow-xl flex items-center gap-3';
+            toast.innerHTML = `
+                <i class="fa-solid fa-check-circle text-green-400"></i>
+                已加入 ${product.name}
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.remove(), 2200);
+        }
+        
+        function updateCartCount() {
+            let count = 0;
+            cart.forEach(item => count += item.quantity || 1);
+            document.getElementById('cart-count').textContent = count;
+        }
+        
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('hidden');
+            
+            if (!modal.classList.contains('hidden')) {
+                renderCart();
+            }
+        }
+        
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="text-center py-12 text-gray-400">購物車是空的～</p>`;
+                document.getElementById('cart-total').textContent = 'NT$ 0';
+                return;
+            }
+            
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                const qty = item.quantity || 1;
+                const itemTotal = item.price * qty;
+                total += itemTotal;
+                
+                const div = document.createElement('div');
+                div.className = 'flex gap-4 mb-8 last:mb-0';
+                div.innerHTML = `
+                    <img src="${item.image}" class="w-20 h-20 object-cover rounded-2xl">
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <h5 class="font-medium">${item.name}</h5>
+                            <button onclick="removeFromCart(${index})" class="text-red-400 text-xl leading-none">×</button>
+                        </div>
+                        <p class="text-sm text-gray-500">NT$ ${item.price} × ${qty}</p>
+                        <div class="mt-3 flex items-center gap-3">
+                            <button onclick="changeQuantity(${index}, -1)" class="w-8 h-8 border rounded-xl flex items-center justify-center hover:bg-gray-100">-</button>
+                            <span class="font-mono w-6 text-center">${qty}</span>
+                            <button onclick="changeQuantity(${index}, 1)" class="w-8 h-8 border rounded-xl flex items-center justify-center hover:bg-gray-100">+</button>
+                        </div>
+                    </div>
+                    <div class="text-right font-semibold">NT$ ${itemTotal}</div>
+                `;
+                container.appendChild(div);
+            });
+            
+            document.getElementById('cart-total').textContent = `NT$ ${total}`;
+        }
+        
+        function changeQuantity(index, delta) {
+            if (!cart[index]) return;
+            cart[index].quantity = Math.max(1, (cart[index].quantity || 1) + delta);
+            renderCart();
+            updateCartCount();
+        }
+        
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            renderCart();
+            updateCartCount();
+        }
+        
+        function checkout() {
+            if (cart.length === 0) return;
+            alert('🎉 感謝您的購買！\n\n此為展示網站，實際下單請透過 LINE 聯絡我們。');
+            cart = [];
+            toggleCart();
+            updateCartCount();
+        }
+        
+        function filterCategory(category) {
+            const filtered = products.filter(p => p.category === category);
+            renderProducts(filtered);
+            
+            // Scroll to products
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function viewAllProducts() {
+            renderProducts(products);
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function showContact() {
+            alert('📱 歡迎透過以下方式聯絡我們：\n\nLINE ID：sakura_daigou\nEmail：service@sakuradaigou.tw\n\n我們會盡快回覆您的需求！');
+        }
+        
+        // Initialize
+        window.onload = function() {
+            renderProducts();
+            
+            // Keyboard shortcut for cart
+            document.addEventListener('keydown', (e) => {
+                if (e.key === "/" && document.getElementById('cart-modal').classList.contains('hidden')) {
+                    e.preventDefault();
+                    toggleCart();
+                }
+            });
+            
+            console.log('%c櫻花代購網站已載入成功 🌸', 'color:#ec4899; font-size:13px; font-weight:600');
+        };
+    </script>
+</body>
+</html>
